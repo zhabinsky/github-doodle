@@ -1,0 +1,24 @@
+{
+  "name": "github-doodle",
+  "version": "1.0.0",
+  "description": "Create a doodle to make your contribution history look fun 😎🤠 🤡",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhabinsky/github-doodle.git"
+  },
+  "keywords": [
+    "github",
+    "doodle",
+    "history"
+  ],
+  "author": "Vladislav Zhabinsky <vladislavzhabinsky@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zhabinsky/github-doodle/issues"
+  },
+  "homepage": "https://github.com/zhabinsky/github-doodle#readme"
+}
