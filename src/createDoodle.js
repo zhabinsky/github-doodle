@@ -1,66 +1,66 @@
 const convertToRGB = require ('hex-rgb');
 const chalk = require ('chalk');
 const Jimp = require ('jimp');
+const {promisify} = require ('util');
 
-const loadImage = async name => {
-  return new Promise (function (res) {
-    Jimp.read (name, async (err, img) => {
-      if (err) throw err;
+const colors = ['#ffff', '#c6e48b', '#7bc96f', '#239a3b', '#196127'];
+
+const instantiateImage = async name => {
+  return promisify (Jimp.read) (name)
+    .then (img => {
+      const {bitmap: bm} = img;
       const exec = (a, ...args) => new Promise (r => img[a] (...args, r));
-      const bm = () => img.bitmap;
-      const scan = f => exec ('scan', 0, 0, bm ().width, bm ().height, f);
-
-      let filename = name.split ('/');
-      filename = filename[filename.length - 1];
-
-      const pattern = filename.split ('.')[0] + '.jpg';
-      const save = async () => await exec ('write', pattern);
-      const image = {
+      return {
+        scan: f => exec ('scan', 0, 0, bm.width, bm.height, f),
         exec,
-        save,
-        scan,
       };
-      res (image);
+    })
+    .catch (err => {
+      throw err;
     });
-  });
 };
 
-const getPixelValue = (b, i) => (b[i] + b[i + 1] + b[i + 2]) / 3;
-const colors = ['#ffff', '#c6e48b', '#7bc96f', '#239a3b', '#196127']
+const rgbColors = colors
   .map (convertToRGB)
   .map (({red, green, blue}) => [red, green, blue]);
+
 const target = [51, 7];
 
-async function inspectColorRange (image) {
-  let darkest = 0, lightest = 255;
+async function getColorRange (image) {
+  let dark = 0, light = 255;
+
   const figureOutRange = function (x, y, index) {
-    const value = getPixelValue (this.bitmap.data, index);
-    if (value > darkest) darkest = value;
-    if (value < lightest) lightest = value;
+    const value = this.bitmap.data[index];
+    if (value > dark) dark = value;
+    if (value < light) light = value;
   };
+
   await image.scan (figureOutRange);
+
   return {
-    darkest,
-    lightest,
+    dark,
+    light,
   };
 }
 
-const paintCell = (range, terminalCells) => {
+const paintCell = (range, cells) => {
   return function (x, y, index) {
-    const value = getPixelValue (this.bitmap.data, index);
-    const delta = range.darkest - range.lightest;
-    const deltaStep = delta / colors.length * 1.1;
-    const deltaPixel = value - range.lightest;
-    const colorIndex = colors.length - 1 - Math.floor (deltaPixel / deltaStep);
-    const color = colors[colorIndex];
+    const bm = this.bitmap.data;
 
-    //change pixel color
-    this.bitmap.data[index + 0] = color[0];
-    this.bitmap.data[index + 1] = color[1];
-    this.bitmap.data[index + 2] = color[2];
+    // map pixel to color index
+    const delta = bm[index] - range.light;
+    const step = (range.dark - range.light) / rgbColors.length * 1.1;
+    const colorIndex = rgbColors.length - 1 - Math.floor (delta / step);
+
+    const color = rgbColors[colorIndex];
+
+    // change pixel color
+    bm[index + 0] = color[0];
+    bm[index + 1] = color[1];
+    bm[index + 2] = color[2];
 
     // save pixel cell
-    terminalCells.push ({
+    cells.push ({
       text: chalk.bgRgb (...color) (' ' + chalk.black (colorIndex)),
       index,
     });
@@ -70,20 +70,19 @@ const paintCell = (range, terminalCells) => {
 };
 
 async function paintCanvas (image) {
-  const range = await inspectColorRange (image);
-  const terminalCells = [];
+  const cells = [];
+  const range = await getColorRange (image);
 
-  const scanner = paintCell (range, terminalCells);
-  await image.scan (scanner);
+  await image.scan (paintCell (range, cells));
 
-  const breakLine = ({text}, i) =>
-    text + (i > 0 && (i + 1) % target[0] === 0 ? '\n' : '');
-  terminalCells.sort ((a, b) => -(b.index - a.index));
-  return terminalCells.map (breakLine).join ('').trim ();
+  // break line
+  const br = ({text}, i) => text + ((i + 1) % target[0] === 0 ? '\n' : '');
+
+  return cells.sort ((b, a) => b.index - a.index).map (br).join ('').trim ();
 }
 
 const createDoodle = async file => {
-  const image = await loadImage (file);
+  const image = await instantiateImage (file);
 
   // resize
   await image.exec ('cover', ...target);
@@ -92,9 +91,7 @@ const createDoodle = async file => {
 
   const pattern = await paintCanvas (image);
 
-  // save image
-  // await image.save ();
-
+  // show preview of the doodle
   console.log (pattern);
 };
 
