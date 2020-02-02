@@ -4,7 +4,8 @@
   "description": "Create a doodle to make your contribution history look fun 😎🤠 🤡",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --exec \"node index.js\""
   },
   "repository": {
     "type": "git",
@@ -20,5 +21,14 @@
   "bugs": {
     "url": "https://github.com/zhabinsky/github-doodle/issues"
   },
-  "homepage": "https://github.com/zhabinsky/github-doodle#readme"
+  "homepage": "https://github.com/zhabinsky/github-doodle#readme",
+  "dependencies": {
+    "chalk": "^3.0.0",
+    "hex-rgb": "^4.1.0",
+    "image-pixels": "^2.2.2",
+    "jimp": "^0.9.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
 }
