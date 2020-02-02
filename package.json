@@ -4,7 +4,6 @@
   "description": "Create a doodle to make your contribution history look fun 😎🤠 🤡",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon --exec \"node index.js\""
   },
   "repository": {
