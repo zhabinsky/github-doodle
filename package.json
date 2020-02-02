@@ -25,7 +25,8 @@
     "chalk": "^3.0.0",
     "hex-rgb": "^4.1.0",
     "image-pixels": "^2.2.2",
-    "jimp": "^0.9.3"
+    "jimp": "^0.9.3",
+    "moment": "^2.24.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"
