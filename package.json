@@ -6,6 +6,9 @@
   "scripts": {
     "start": "nodemon --exec \"node index.js\""
   },
+  "bin": {
+    "github-doodle": "./bin/figlify"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/zhabinsky/github-doodle.git"
@@ -22,11 +25,14 @@
   },
   "homepage": "https://github.com/zhabinsky/github-doodle#readme",
   "dependencies": {
+    "argumentator": "^1.0.7",
     "chalk": "^3.0.0",
+    "cli-progress": "^3.6.0",
     "hex-rgb": "^4.1.0",
     "image-pixels": "^2.2.2",
     "jimp": "^0.9.3",
-    "moment": "^2.24.0"
+    "moment": "^2.24.0",
+    "text2png": "^2.3.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"
