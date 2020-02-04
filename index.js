@@ -3,7 +3,7 @@
 const params = require ('./src/resolveParams');
 const createDoodle = require ('./src/createDoodle');
 const text2png = require ('text2png');
-// var fs = require ('fs');
+// const fs = require ('fs');
 
 const colors = ['#ffff', '#c6e48b', '#7bc96f', '#239a3b', '#196127'];
 const {
@@ -18,7 +18,10 @@ const {
   scaleEffect,
 } = params;
 
-console.log (params);
+console.log ('\nParams:');
+console.log (
+  [...Object.keys (params).map (e => `  ${e} = ${params[e]}`), ''].join ('\n')
+);
 
 const doodle = (imagePath, options = {}) => {
   return createDoodle (imagePath, {
@@ -44,7 +47,7 @@ if (image) {
     backgroundColor: 'transparent',
     padding: 0,
     lineSpacing: 0,
-    strokeWidth: 5,
+    strokeWidth: 6,
     strokeColor: 'white',
     font: '50px sans-serif',
   });

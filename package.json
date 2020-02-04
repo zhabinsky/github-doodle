@@ -7,7 +7,7 @@
     "start": "nodemon --exec \"node index.js\""
   },
   "bin": {
-    "github-doodle": "./bin/figlify"
+    "github-doodle": "./bin/github-doodle"
   },
   "repository": {
     "type": "git",

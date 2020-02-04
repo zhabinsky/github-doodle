@@ -9,7 +9,7 @@ const options = [
   {
     name: 'text',
     description: 'text to generate (Optional if --image is given)',
-    value: undefined,
+    value: 'ILOVECATS',
   },
   {
     name: 'start-date',
@@ -72,7 +72,7 @@ const {
   invert,
 } = context;
 
-const text = textArgument + ' ' + texts.join (' ');
+const text = (textArgument + ' ' + texts.join (' ')).trim ();
 
 module.exports = {
   w: Number (w),
