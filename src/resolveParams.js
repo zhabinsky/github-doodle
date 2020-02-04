@@ -13,7 +13,7 @@ const options = [
   },
   {
     name: 'start-date',
-    description: 'first commit date (DD-MM-YYYY)',
+    description: 'first commit date (MM-DD-YYYY)',
     value: '12-31-2017',
   },
   {
