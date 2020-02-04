@@ -22,7 +22,7 @@ $ npm i -g github-doodle
 github-doodle --text="MEOWBABY"
 ```
 ### Output:
-![](example3.png)
+![](example3.png)   
 2) From image
 ```
 github-doodle --invert\
