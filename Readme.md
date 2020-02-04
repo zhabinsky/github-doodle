@@ -48,7 +48,7 @@ Flags:                   Description:
 -----------------------  ----------------------------------------------------
 --image=undefined        Sets image name or url (Optional if --text is given)
 --text=ILOVECATS         Sets text to generate (Optional if --image is given)
---start-date=12-31-2017  Sets first commit date (DD-MM-YYYY)                 
+--start-date=12-31-2017  Sets first commit date (MM-DD-YYYY)                 
 --dir=doodle             Sets output repository path                         
 --effect-scale=2         Sets commits multiplier (recommended < 6)           
 --resize-mode=contain    Sets image resize mode (cover, contain)             
