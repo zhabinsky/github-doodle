@@ -7,7 +7,7 @@ Generate a custom pattern for your github contributions history from **text** or
 
 
 ## Example
-![](example.png)
+![](res/example.png)
 
 ## Install
 
@@ -22,14 +22,14 @@ $ npm i -g github-doodle
 github-doodle --text="MEOWBABY"
 ```
 ### Output:
-![](example3.png)   
+![](res/example3.png)   
 2) From image
 ```
 github-doodle --invert\
 --image=https://upload.wikimedia.org/wikipedia/commons/7/70/Symbolic_Love_Heart.png 
 ```
 ### Output:
-![](example2.png)
+![](res/example2.png)
 
 ## Add to github
 1) Create empty github repository
