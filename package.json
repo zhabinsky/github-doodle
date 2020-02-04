@@ -1,6 +1,6 @@
 {
   "name": "github-doodle",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Create a doodle to make your contribution history look fun 😎🤠 🤡",
   "main": "index.js",
   "scripts": {

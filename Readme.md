@@ -1,6 +1,10 @@
 # Github doodle
-
 Generate a custom pattern for your github contributions history from **text** or **image**.
+
+[npmjs](https://www.npmjs.com/package/github-doodle)   
+[github](https://github.com/zhabinsky/github-doodle#readme)   
+
+
 
 ## Example
 ![](example.png)
